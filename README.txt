@@ -2,7 +2,7 @@
  **************************************************************************************************
  * Title  : README file 
  * Board  : HACK-AF-MOTOR-SHIELD
- * Sketch : To control a four wheeled robot over bluetooth
+ * Sketch : Controls a four wheeled robot over bluetooth
  * NOTE	  : 
  * Author : Written by Rushikesh Deshmukh for http://www.hack-man.io
  * License: Berkeley Software Distribution (BSD)
