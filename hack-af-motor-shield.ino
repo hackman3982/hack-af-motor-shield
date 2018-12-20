@@ -1,6 +1,6 @@
 /*
  **************************************************************************************************
- * Sketch : Beeps a piezo buzzer continuously
+ * Sketch : Controls a 4 wheel drive vehicle over a bluetooth link
  * Board  : HACK-AF-MOTOR-SHIELD
  * Wiring : Refer Adafruit Motor Shield circuit schematic
  * Author : Written by Rushikesh Deshmukh for http://www.hack-man.io
@@ -28,10 +28,10 @@
  * ------------------------------------------------------------------------------------------------
  */
  /* Obejcts of motor shield */
- AF_DCMotor m1(1); 
- AF_DCMotor m2(2); 
- AF_DCMotor m3(3); 
- AF_DCMotor m4(4); 
+ AF_DCMotor m1(1, MOTOR12_1KHZ); 
+ AF_DCMotor m2(2, MOTOR12_1KHZ); 
+ AF_DCMotor m3(3, MOTOR12_1KHZ); 
+ AF_DCMotor m4(4, MOTOR12_1KHZ); 
 
  /* Object of software serial for bluetooth */
  SoftwareSerial btSerial(A1, A0); 
@@ -86,6 +86,11 @@
  void setup() {
   Serial.begin(9600);     // set serial com at 9600bps                                 
   btSerial.begin(9600);   // set myserial com at 9600bps
+  
+  m1.setSpeed(150);       // set the speed for motor (0-255)
+  m2.setSpeed(150);       // set the speed for motor (0-255)
+  m3.setSpeed(150);       // set the speed for motor (0-255)
+  m4.setSpeed(150);       // set the speed for motor (0-255)
  }
   
 /*
@@ -94,10 +99,12 @@
  * ------------------------------------------------------------------------------------------------
  */
  void loop() {
+  
   if(btSerial.available() > 0){ 
+    delay(50);        // delay for stability
     command = btSerial.read(); 
   
-  /*  configure these commands in bluetooth app */  
+  //  configure these commands in bluetooth app 
     switch(command){
     case 'C':         // command for cruise           
       cruise();
@@ -118,5 +125,5 @@
       halt();
       break;
     }
-  } 
+  }
  }
